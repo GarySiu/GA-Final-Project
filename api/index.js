@@ -1,8 +1,17 @@
 var express = require('express'),
 app = express(),
 bodyParser = require('body-parser'),
-jsonParser = bodyParser.json(),
-urlencodedParser = bodyParser.urlencoded({ extended: false });
+// jsonParser = bodyParser.json(),
+urlencodedParser = bodyParser.urlencoded({ extended: false }),
+Twit = require('twit'),
+T = new Twit({
+    consumer_key:         process.env.MAGP_CONSUMER_KEY
+  , consumer_secret:      process.env.MAGP_CONSUMER_SECRET
+  , app_only_auth:        true
+});
+
+// request = require('request');
+
 
 port = process.env.PORT || 3000;
 
@@ -23,7 +32,14 @@ app.get('/search', urlencodedParser, function(req, res) {
 
   // different kinds of twitter search
   if(req.query.q.charAt(0) === '@') {
-    res.send('User named: ' + req.query.q.slice(1))
+
+    T.get('statuses/user_timeline', { screen_name: req.query.q.slice(1),
+      count: 200, trim_user: true, exclude_replies: true, include_rts: false }, function (err, data, response) {
+        if(err) console.log(err)
+        return res.send(data);
+      })
+
+    // res.send('User named: ' + req.query.q.slice(1))
   } else if(req.query.q.charAt(0) === '#') {
     res.send('Hashtag: ' + req.query.q.slice(1))
   } else {
