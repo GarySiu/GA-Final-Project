@@ -18,9 +18,9 @@ module.exports = function(data){
   m.seed(seed, function(){
     for(i = 0; i < 20; i++) {
       magnetText.push(m.fill(m.pick(), 1).join(' '));
-      magnetText.push(m.fill(m.pick(), 2).join(' '));
-      magnetText.push(m.fill(m.pick(), 3).join(' '));
-      magnetText.push(m.fill(m.pick(), 4).join(' '));
+      if(i % 2 == 0) magnetText.push(m.fill(m.pick(), 2).join(' '));
+      if(i % 3 == 0) magnetText.push(m.fill(m.pick(), 3).join(' '));
+      if(i % 4 == 0) magnetText.push(m.fill(m.pick(), 4).join(' '));
     }
   })
 
