@@ -10,7 +10,7 @@ $(document).ready(function() {
     });
 
     $(function() {
-      $( "li" ).draggable({ containment: $magnetContainer, stack: "#magnet-list"});
+      $( "li" ).draggable({ cursor: 'move', containment: $magnetContainer, stack: '#magnet-list li'});
     });
 
     $magnetContainer.append('<div id="build-area"></div>')

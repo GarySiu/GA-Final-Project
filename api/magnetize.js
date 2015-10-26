@@ -6,7 +6,7 @@ module.exports = function(data){
   var seed = [], magnetText = [];
 
   data.forEach(function(tweet) {
-    // fully remove hashtags, urls RT and :
+    // fully remove hashtags, urls, RT and :
     tweet.text = tweet.text.replace(/#\w+/g, '').replace(/http\S+/g, '')
       .replace(/:/g, '').replace(/RT/g, '')
     // additional cleanup to remove personal info
