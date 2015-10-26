@@ -1,3 +1,16 @@
-body {
-  /*background: hotpink;*/
+/*body {
+  background: hotpink;
+}*/
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  background: black;
+  color: white;
+  border: 1px solid white;
+  margin: 5px;
+  padding: 10px;
+  display: inline-block;
 }
