@@ -3,28 +3,17 @@ app = express(),
 bodyParser = require('body-parser'),
 // jsonParser = bodyParser.json(),
 urlencodedParser = bodyParser.urlencoded({ extended: false }),
+
 Twit = require('twit'),
 T = new Twit({
     consumer_key:         process.env.MAGP_CONSUMER_KEY
   , consumer_secret:      process.env.MAGP_CONSUMER_SECRET
   , app_only_auth:        true
-});
+}),
 
-// request = require('request');
-
+magnetize = require('./magnetize'),
 
 port = process.env.PORT || 3000;
-
-// These are the ENV names for my various tokens
-// MAGP_CONSUMER_KEY
-// MAGP_CONSUMER_SECRET
-// MAGP_ACCESS_TOKEN
-// MAGP_ACCESS_TOKEN_SECRET
-
-
-// app.get('/', function(req, res) {
-//   res.send('Hello World!')
-// })
 
 app.get('/search', urlencodedParser, function(req, res) {
   // this gives us the option to return results from the web as well as twitter
@@ -36,14 +25,16 @@ app.get('/search', urlencodedParser, function(req, res) {
     T.get('statuses/user_timeline', { screen_name: req.query.q.slice(1),
       count: 200, trim_user: true, exclude_replies: true, include_rts: false }, function (err, data, response) {
         if(err) console.log(err)
-        return res.send(data);
+        res.send(magnetize(data));
       })
 
-    // res.send('User named: ' + req.query.q.slice(1))
-  } else if(req.query.q.charAt(0) === '#') {
-    res.send('Hashtag: ' + req.query.q.slice(1))
+    console.log('Returning results for user named: ' + req.query.q.slice(1))
   } else {
-    res.send('Generic search: ' + req.query.q)
+    T.get('search/tweets', { q: req.query.q, count: 100 }, function(err, data, response) {
+      data = data.statuses;
+      res.send(magnetize(data));
+    })
+    console.log('Generic search: ' + req.query.q)
   }
 });
 
