@@ -9,8 +9,14 @@ ul {
 li {
   background: black;
   color: white;
-  border: 1px solid white;
+  border: 2px solid white;
   margin: 5px;
   padding: 10px;
   display: inline-block;
+}
+
+#build-area{
+  height: 100px;
+  width: 100%;
+  background: hotpink;
 }
