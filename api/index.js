@@ -1,19 +1,22 @@
-var express = require('express'),
-app = express(),
-bodyParser = require('body-parser'),
+var express = require('express')
+, app = express()
+, bodyParser = require('body-parser')
 // jsonParser = bodyParser.json(),
-urlencodedParser = bodyParser.urlencoded({ extended: false }),
+, urlencodedParser = bodyParser.urlencoded({ extended: false })
+, cors = require('cors')
 
-Twit = require('twit'),
-T = new Twit({
+, Twit = require('twit')
+, T = new Twit({
     consumer_key:         process.env.MAGP_CONSUMER_KEY
   , consumer_secret:      process.env.MAGP_CONSUMER_SECRET
   , app_only_auth:        true
-}),
+})
 
-magnetize = require('./magnetize'),
+,magnetize = require('./magnetize')
 
-port = process.env.PORT || 3000;
+,port = process.env.PORT || 3000;
+
+app.use(cors());
 
 app.get('/search', urlencodedParser, function(req, res) {
   // this gives us the option to return results from the web as well as twitter
