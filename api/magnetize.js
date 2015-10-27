@@ -1,9 +1,10 @@
 var cleanThisTweet = require('clean-this-tweet-up'),
-markov = require('markov'),
-m = markov(2);
+markov = require('markov');
 
 module.exports = function(data){
-  var seed = [], magnetText = [];
+  var seed = []
+  , magnetText = []
+  , m = markov(2);
 
   data.forEach(function(tweet) {
     // fully remove hashtags, urls, RT and :
