@@ -4,6 +4,8 @@
 
 ul {
   list-style-type: none;
+  height: 300px;
+  width: 100%;
 }
 
 li {
@@ -12,13 +14,15 @@ li {
   border: 2px solid white;
   margin: 5px;
   padding: 10px;
+  vertical-align: top;
   display: inline-block;
   cursor: -webkit-grab;
   cursor: grab;
+  white-space: nowrap;
 }
 
 #build-area{
-  height: 100px;
+  height: 300px;
   width: 100%;
   background: hotpink;
 }

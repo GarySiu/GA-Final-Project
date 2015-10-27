@@ -3,9 +3,15 @@ $(document).ready(function() {
   $magnetContainer = $('#magnet-container');
   $searchBox = $('#search-box');
   $searchButton = $('#search-button');
+  $buildArea = $('#build-area');
 
   setListeners();
   getMagnets();
+  $(function(){
+    $buildArea.sortable({
+
+    })
+  })
 })
 
 function setListeners() {
@@ -25,7 +31,14 @@ function getMagnets() {
     });
 
     $(function() {
-      $( "li" ).draggable({ cursor: '-webkit-grabbing', containment: $magnetContainer, stack: '#magnet-list li'});
+      $( "li" ).draggable({ 
+        cursor: '-webkit-grabbing'
+        , containment: $magnetContainer
+        , stack: '#magnet-list li'
+        , connectToSortable: '#build-area'
+        // , snap: true
+        // , snapTolerance: 10
+      });
     });
     // $magnetContainer.append('<div id="build-area"></div>');
   });
