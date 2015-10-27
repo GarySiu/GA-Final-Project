@@ -6,6 +6,8 @@ ul {
   list-style-type: none;
   height: 300px;
   width: 100%;
+  overflow: scroll;
+  padding: 0;
 }
 
 li {
@@ -21,8 +23,11 @@ li {
   white-space: nowrap;
 }
 
-#build-area{
-  height: 300px;
-  width: 100%;
+#build-area {
   background: hotpink;
+  padding: 5px;
+}
+
+#build-area li {
+  margin: 5px 0;
 }
