@@ -2501,7 +2501,8 @@ li {
   margin: 5px;
   padding: 10px;
   display: inline-block;
-  cursor: move;
+  cursor: -webkit-grab;
+  cursor: grab;
 }
 
 #build-area{
