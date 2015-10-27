@@ -5,19 +5,34 @@ $(document).ready(function() {
   $searchButton = $('#search-button');
   $buildArea = $('#build-area');
   $tweetButton = $('#tweet-button')
+  $charCount = $('#char-count')
 
   setListeners();
   getMagnets();
+  buildAreaInit();
+})
+
+function buildAreaInit() {
   $(function(){
     $buildArea.sortable({
       receive: function(event, ui) {
-        var outputString = $buildArea.sortable('toArray', {attribute: 'data-text'}).join(' ');
-        outputString = encodeURIComponent(outputString);
-        $tweetButton.attr('href', 'https://twitter.com/intent/tweet?text=' + outputString)
+        updateTweetText();
       }
     })
   })
-})
+}
+
+function updateTweetText() {
+  var outputString = $buildArea.sortable('toArray', {attribute: 'data-text'}).join(' ');
+  console.log(outputString.length);
+  updateCharCount(outputString.length);
+  outputString = encodeURIComponent(outputString);
+  $tweetButton.attr('href', 'https://twitter.com/intent/tweet?text=' + outputString);
+}
+
+function updateCharCount(size) {
+  $charCount.html(140 - size);
+}
 
 function setListeners() {
   $searchButton.on('click', function() {
@@ -42,10 +57,7 @@ function getMagnets() {
         , stack: '#magnet-list li'
         , connectToSortable: '#build-area'
         , scroll: false
-        // , snap: true
-        // , snapTolerance: 10
       });
     });
-    // $magnetContainer.append('<div id="build-area"></div>');
   });
 }

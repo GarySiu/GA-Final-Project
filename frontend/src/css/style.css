@@ -1,6 +1,7 @@
-/*body {
-  background: hotpink;
-}*/
+body {
+  margin: 0;
+  font-family: 'Cutive Mono', monospace;
+}
 
 ul {
   list-style-type: none;
@@ -8,6 +9,7 @@ ul {
   width: 100%;
   overflow: scroll;
   padding: 0;
+  margin: 0;
 }
 
 li {
@@ -26,8 +28,13 @@ li {
 #build-area {
   background: hotpink;
   padding: 5px;
+  margin-top: 16px;
 }
 
 #build-area li {
   margin: 5px 0;
+}
+
+#char-count {
+  font-size: 36px;
 }
