@@ -1,20 +1,19 @@
 var express = require('express')
-, app = express()
-, bodyParser = require('body-parser')
-// jsonParser = bodyParser.json(),
-, urlencodedParser = bodyParser.urlencoded({ extended: false })
-, cors = require('cors')
+  , app = express()
+  , bodyParser = require('body-parser')
+  // , jsonParser = bodyParser.json()
+  , urlencodedParser = bodyParser.urlencoded({ extended: false })
+  , cors = require('cors')
+  , port = process.env.PORT || 3000
 
-, Twit = require('twit')
-, T = new Twit({
-    consumer_key:         process.env.MAGP_CONSUMER_KEY
-  , consumer_secret:      process.env.MAGP_CONSUMER_SECRET
-  , app_only_auth:        true
-})
+  , Twit = require('twit')
+  , T = new Twit({
+    consumer_key:           process.env.MAGP_CONSUMER_KEY
+    , consumer_secret:      process.env.MAGP_CONSUMER_SECRET
+    , app_only_auth:        true
+  })
 
-,magnetize = require('./magnetize')
-
-,port = process.env.PORT || 3000;
+  , magnetize = require('./magnetize');
 
 app.use(cors());
 
@@ -25,19 +24,27 @@ app.get('/search', urlencodedParser, function(req, res) {
   // different kinds of twitter search
   if(req.query.q.charAt(0) === '@') {
 
-    T.get('statuses/user_timeline', { screen_name: req.query.q.slice(1),
-      count: 200, trim_user: true, exclude_replies: true, include_rts: false }, function (err, data, response) {
-        if(err) console.log(err)
-        res.send(magnetize(data));
-      })
+    var screen_name = req.query.q.slice(1);
 
-    console.log('Returning results for user named: ' + req.query.q.slice(1))
+    T.get('statuses/user_timeline', { screen_name: screen_name,
+      count: 200, trim_user: true, exclude_replies: true, include_rts: false }, function (err, data, response) {
+      if(err) console.log(err)
+      res.send(magnetize(data));
+    });
+
+    console.log('Returning results for user named:', screen_name)
+
   } else {
-    T.get('search/tweets', { q: req.query.q, count: 100 }, function(err, data, response) {
+
+    var query = req.query.q;
+
+    T.get('search/tweets', { q: query, count: 100 }, function(err, data, response) {
       data = data.statuses;
       res.send(magnetize(data));
-    })
-    console.log('Generic search: ' + req.query.q)
+    });
+
+    console.log('Generic search:', query);
+
   }
 });
 
