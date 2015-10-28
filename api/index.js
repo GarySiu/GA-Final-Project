@@ -28,7 +28,10 @@ app.get('/search', urlencodedParser, function(req, res) {
 
     T.get('statuses/user_timeline', { screen_name: screen_name,
       count: 200, trim_user: true, exclude_replies: true, include_rts: false }, function (err, data, response) {
-      if(err) console.log(err)
+      if(err) {
+        console.log(err)
+        return res.send(['An error occured'])
+      }
       res.send(magnetize(data));
     });
 
@@ -39,6 +42,10 @@ app.get('/search', urlencodedParser, function(req, res) {
     var query = req.query.q;
 
     T.get('search/tweets', { q: query, count: 100 }, function(err, data, response) {
+      if(err) {
+        console.log(err)
+        return res.send(['An error occured'])
+      }
       data = data.statuses;
       res.send(magnetize(data));
     });

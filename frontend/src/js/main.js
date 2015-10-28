@@ -40,8 +40,8 @@ function buildAreaInit() {
             , connectToSortable: '#build-area'
             , scroll: false
           });
-          $magnet.css('left', Math.floor(Math.random() * $(window).width()) - $magnet.width())
-          $magnet.css('top', Math.floor(Math.random() * $magnetList.height()) - $magnet.height())
+          $magnet.css('left', event.pageX - (ui.item.width() / 2) )
+          $magnet.css('top', event.pageY - 156 + (ui.item.height() / 2) )
         }
       }
     })
@@ -85,6 +85,7 @@ function getMagnets() {
       $('li')
         .draggable({ 
           cursor: '-webkit-grabbing'
+          , containment: $magnetList
           , stack: '#magnet-list li'
           , connectToSortable: '#build-area'
           , scroll: false
