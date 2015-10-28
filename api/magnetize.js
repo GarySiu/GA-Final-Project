@@ -22,8 +22,6 @@ module.exports = function(data){
     for(i = 0; i < 25; i++) {
       magnetText.push(m.fill(m.pick(), 1));
       if(i % 2 == 0) magnetText.push(m.fill(m.pick(), 2).join(' '));
-      // if(i % 3 == 0) magnetText.push(m.fill(m.pick(), 3).join(' '));
-      // if(i % 4 == 0) magnetText.push(m.fill(m.pick(), 4).join(' '));
     }
   })
 

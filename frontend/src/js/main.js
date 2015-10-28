@@ -17,6 +17,27 @@ function buildAreaInit() {
     $buildArea.sortable({
       receive: function(event, ui) {
         updateTweetText();
+        ui.item.draggable('destroy');
+      }
+      , over: function () {
+        removeIntent = false;
+      }
+      , out: function () {
+        removeIntent = true;
+      }
+      , beforeStop: function (event, ui) {
+        if(removeIntent == true){
+          updateTweetText();
+          var $magnet = ui.item.detach();
+          $magnetList.append($magnet);
+          $magnet.draggable({ 
+            cursor: '-webkit-grabbing'
+            , containment: $magnetContainer
+            , stack: '#magnet-list li'
+            , connectToSortable: '#build-area'
+            , scroll: false
+          });
+        }
       }
     })
   })
@@ -24,7 +45,6 @@ function buildAreaInit() {
 
 function updateTweetText() {
   var outputString = $buildArea.sortable('toArray', {attribute: 'data-text'}).join(' ');
-  console.log(outputString.length);
   updateCharCount(outputString.length);
   outputString = encodeURIComponent(outputString);
   $tweetButton.attr('href', 'https://twitter.com/intent/tweet?text=' + outputString);
@@ -47,7 +67,8 @@ function getMagnets() {
     $magnetList.empty();
     var magnets = response;
     $.each(magnets, function(index, magnet) {
-      $magnetList.append('<li data-text="' + magnet + '">' + magnet + '</li>')
+      var template = '<li data-text="' + magnet + '">' + magnet + '</li>'
+      $magnetList.append(template)
     });
 
     $(function() {

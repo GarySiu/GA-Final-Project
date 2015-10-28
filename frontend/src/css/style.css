@@ -1,3 +1,7 @@
+/** {
+  border: 1px solid black;
+}*/
+
 body {
   margin: 0;
   font-family: 'Cutive Mono', monospace;
@@ -13,9 +17,9 @@ ul {
 }
 
 li {
-  background: black;
-  color: white;
-  border: 2px solid white;
+  background: #FFF;
+  color: #000;
+  border: 2px solid #000;
   margin: 5px;
   padding: 10px;
   vertical-align: top;
@@ -27,6 +31,7 @@ li {
 
 #build-area {
   background: hotpink;
+  height: 200px;
   padding: 5px;
   margin-top: 16px;
 }
