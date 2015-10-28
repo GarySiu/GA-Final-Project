@@ -40,6 +40,8 @@ function buildAreaInit() {
             , connectToSortable: '#build-area'
             , scroll: false
           });
+          $magnet.css('left', Math.floor(Math.random() * $(window).width()) - $magnet.width())
+          $magnet.css('top', Math.floor(Math.random() * $magnetList.height()) - $magnet.height())
         }
       }
     })
@@ -80,12 +82,17 @@ function getMagnets() {
     });
 
     $(function() {
-      $( "li" ).draggable({ 
-        cursor: '-webkit-grabbing'
-        , stack: '#magnet-list li'
-        , connectToSortable: '#build-area'
-        , scroll: false
-      });
+      $('li')
+        .draggable({ 
+          cursor: '-webkit-grabbing'
+          , stack: '#magnet-list li'
+          , connectToSortable: '#build-area'
+          , scroll: false
+        });
+      $.each($('li'), function(index, magnet) {
+        $(magnet).css('left', Math.floor(Math.random() * $(window).width()) - $(magnet).width())
+        $(magnet).css('top', Math.floor(Math.random() * $magnetList.height()) - $(magnet).height())
+      })
     });
   });
 }
