@@ -2,24 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <title>Magnetic Tweets</title>
-  <link href='https://fonts.googleapis.com/css?family=Cutive+Mono' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Cutive+Mono' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
   <form>
-    <input type="text" value="@GA" id="search-box">
-    <input type="submit" value="Get new magnets" id="search-button">
+    <label for="search-box">Search: </label>
+    <input type="text" value="@GA" id="search-box" class="form-control">
+    <input type="submit" value="Get new magnets" id="search-button" class="btn btn-default">
   </form>
-  <div id="magnet-container">
-    <ul id="magnet-list"></ul>
+  <ul id="magnet-list"></ul>
+  <div id="bottom-container">
     <ul id="build-area"></ul>
+    <div>
+      <a href="https://twitter.com/intent/tweet?text=Magnetic%20Tweets" class="btn btn-default" data-url="http://generalassemb.ly" data-size="large" data-count="none" id="tweet-button">Tweet</a> <span  id="char-count">140</span>
+    </div>
   </div>
-  <div id="char-count">
-  140
-  </div>
-  <a href="https://twitter.com/intent/tweet?text=Magnetic%20Tweets" class="twitter-share-button" data-url="http://generalassemb.ly" data-size="large" data-count="none" id="tweet-button">Tweet</a>
-
-    <script src="./js/app.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+  <script src="./js/app.js"></script>
 </body>
 </html>

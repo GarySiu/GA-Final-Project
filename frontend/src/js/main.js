@@ -1,6 +1,5 @@
 $(document).ready(function() {
   $magnetList = $('#magnet-list');
-  $magnetContainer = $('#magnet-container');
   $searchBox = $('#search-box');
   $searchButton = $('#search-button');
   $buildArea = $('#build-area');
@@ -8,9 +7,14 @@ $(document).ready(function() {
   $charCount = $('#char-count')
 
   setListeners();
+  setMagnetListHeight();
   getMagnets();
   buildAreaInit();
 })
+
+function setMagnetListHeight() {
+  $magnetList.css('height', $(window).height() - 325)
+}
 
 function buildAreaInit() {
   $(function(){
@@ -32,7 +36,6 @@ function buildAreaInit() {
           $magnetList.append($magnet);
           $magnet.draggable({ 
             cursor: '-webkit-grabbing'
-            , containment: $magnetContainer
             , stack: '#magnet-list li'
             , connectToSortable: '#build-area'
             , scroll: false
@@ -59,12 +62,17 @@ function setListeners() {
     event.preventDefault();
     getMagnets();
   })
+
+  $(window).on('resize', setMagnetListHeight)
 }
 
 function getMagnets() {
   $.get('http://localhost:3000/search?type=twitter&q=' + encodeURIComponent($searchBox.val()))
   .done(function(response) {
     $magnetList.empty();
+    $buildArea.empty();
+    $charCount.html(140);
+
     var magnets = response;
     $.each(magnets, function(index, magnet) {
       var template = '<li data-text="' + magnet + '">' + magnet + '</li>'
@@ -74,7 +82,6 @@ function getMagnets() {
     $(function() {
       $( "li" ).draggable({ 
         cursor: '-webkit-grabbing'
-        , containment: $magnetContainer
         , stack: '#magnet-list li'
         , connectToSortable: '#build-area'
         , scroll: false
