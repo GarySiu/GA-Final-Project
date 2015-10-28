@@ -27,6 +27,7 @@ li {
   cursor: -webkit-grab;
   cursor: grab;
   white-space: nowrap;
+  position: absolute;
 }
 
 #build-area {
@@ -38,6 +39,7 @@ li {
 
 #build-area li {
   margin: 5px 0;
+  position: static;
 }
 
 #char-count {
@@ -56,4 +58,8 @@ li {
   bottom: 0;
   width: 100%;
   height: 225px;
+}
+
+#magnet-list {
+  position: relative;
 }
