@@ -6,10 +6,12 @@ module.exports = function(data){
   , magnetText = []
   , m = markov(2);
 
+  if(data === null) return ['No data returned'];
+
   data.forEach(function(tweet) {
     // fully remove hashtags, urls, RT and :
     tweet.text = tweet.text.replace(/#\w+/g, '').replace(/http\S+/g, '')
-      .replace(/[:"()]/g, '').replace(/RT/g, '')
+      .replace(/[:"()“”]/g, '').replace(/RT/g, '')
     // additional cleanup to remove personal info
     seed.push(cleanThisTweet(tweet));
   });
