@@ -27,8 +27,8 @@ function buildAreaInit() {
       }
       , beforeStop: function (event, ui) {
         if(removeIntent == true){
-          updateTweetText();
           var $magnet = ui.item.detach();
+          updateTweetText();
           $magnetList.append($magnet);
           $magnet.draggable({ 
             cursor: '-webkit-grabbing'
