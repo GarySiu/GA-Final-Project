@@ -1,24 +1,45 @@
-/*body {
-  background: hotpink;
+/** {
+  border: 1px solid black;
 }*/
+
+body {
+  margin: 0;
+  font-family: 'Cutive Mono', monospace;
+}
 
 ul {
   list-style-type: none;
+  height: 300px;
+  width: 100%;
+  overflow: scroll;
+  padding: 0;
+  margin: 0;
 }
 
 li {
-  background: black;
-  color: white;
-  border: 2px solid white;
+  background: #FFF;
+  color: #000;
+  border: 2px solid #000;
   margin: 5px;
   padding: 10px;
+  vertical-align: top;
   display: inline-block;
   cursor: -webkit-grab;
   cursor: grab;
+  white-space: nowrap;
 }
 
-#build-area{
-  height: 100px;
-  width: 100%;
+#build-area {
   background: hotpink;
+  height: 200px;
+  padding: 5px;
+  margin-top: 16px;
+}
+
+#build-area li {
+  margin: 5px 0;
+}
+
+#char-count {
+  font-size: 36px;
 }
