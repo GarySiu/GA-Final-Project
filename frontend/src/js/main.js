@@ -113,7 +113,7 @@ function makeMagnetsDraggable() {
 
 function scatterMagnets(){
   $.each($('li'), function(index, magnet) {
-    var randomLeft = Math.abs(Math.floor(Math.random() * $(window).width() - ($(window).width() / 6)))
+    var randomLeft = Math.abs(Math.floor(Math.random() * $(window).width() - ($(window).width() / 2)))
     var randomTop = Math.abs(Math.floor(Math.random() * $magnetList.height() - 50))
     var randomAngle = (Math.floor(Math.random() * 10)) - 4 + 'deg'
     $(magnet).css('left', randomLeft)

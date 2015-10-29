@@ -8,21 +8,21 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
   <link rel="stylesheet" href="./css/style.css">
 </head>
-<body class='row'>
-  <form>
-    <div class="input-field">
+<body>
+  <form class="container">
+    <div class="input-field row">
       <label for="search-box">Search</label>
       <input type="text" value="@GA" id="search-box" class="col s6 m3">
+      <input type="submit" value="Get new magnets" id="search-button" class="btn btn-default">
     </div>
-    <input type="submit" value="Get new magnets" id="search-button" class="btn btn-default">
   </form>
-  <ul id="magnet-list"></ul>
-  <div id="bottom-container">
-    <ul id="build-area"></ul>
-    <div>
-      <a href="https://twitter.com/intent/tweet?text=Magnetic%20Tweets" class="btn btn-default" id="tweet-button">Tweet</a> <span  id="char-count">140</span>
+    <ul id="magnet-list" class="container"></ul>
+    <div id="bottom-container">
+      <ul id="build-area" class="container"></ul>
+      <div class="container">
+        <a href="https://twitter.com/intent/tweet?text=Magnetic%20Tweets" class="btn btn-default" id="tweet-button">Tweet</a> <span  id="char-count">140</span>
+      </div>
     </div>
-  </div>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>

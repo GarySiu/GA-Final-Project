@@ -4,6 +4,9 @@
 
 body {
   margin: 0;
+  background: url(./images/fridge.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  background-size: cover;
 }
 
 ul {
