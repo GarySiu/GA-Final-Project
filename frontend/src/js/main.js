@@ -1,55 +1,67 @@
-$(document).ready(function() {
-  $magnetList = $('#magnet-list');
-  $searchBox = $('#search-box');
-  $searchButton = $('#search-button');
-  $buildArea = $('#build-area');
-  $tweetButton = $('#tweet-button')
-  $charCount = $('#char-count')
+$(document)
+  .ready(function() {
+    $magnetList = $('#magnet-list');
+    $searchBox = $('#search-box');
+    $searchButton = $('#search-button');
+    $buildArea = $('#build-area');
+    $tweetButton = $('#tweet-button')
+    $charCount = $('#char-count')
 
-  setListeners();
-  setMagnetListHeight();
-  getMagnets();
-  buildAreaInit();
-})
+    setListeners();
+    setMagnetListHeight();
+    getMagnets();
+    buildAreaInit();
+  })
+  .ajaxStart(function(){
+    $magnetList.empty();
+    $buildArea.empty();
+    $charCount.html(140);
+    $magnetList.append('<div class="progress"><div class="indeterminate"></div></div>');
+  })
+  .ajaxStop(function(){
+    $('#magnet-list > .progress').remove();
+  });
 
 function setMagnetListHeight() {
-  $magnetList.css('height', $(window).height() - 325)
+  $magnetList.css('height', $(window).height() - 300)
 }
 
 function buildAreaInit() {
-  $(function(){
-    $buildArea.sortable({
-      receive: function(event, ui) {
+  $buildArea.sortable({
+    receive: function(event, ui) {
+      updateTweetText();
+      ui.item.draggable('destroy');
+      ui.item.css('transform', 'rotate(0deg)')
+    }
+    , placeholder: "ui-state-highlight"
+    , over: function () {
+      removeIntent = false;
+    }
+    , out: function () {
+      removeIntent = true;
+    }
+    , beforeStop: function (event, ui) {
+      if(removeIntent == true) {
         updateTweetText();
-        ui.item.draggable('destroy');
-        ui.item.css('transform', 'rotate(0deg)')
+        var $magnet = ui.item.detach();
+        reInitMagnet($magnet, ui)
       }
-      , placeholder: "ui-state-highlight"
-      , over: function () {
-        removeIntent = false;
-      }
-      , out: function () {
-        removeIntent = true;
-      }
-      , beforeStop: function (event, ui) {
-        if(removeIntent == true){
-          updateTweetText();
-          var $magnet = ui.item.detach();
-          $magnetList.append($magnet);
-          $magnet.draggable({ 
-            cursor: '-webkit-grabbing'
-            , stack: '#magnet-list li'
-            , connectToSortable: '#build-area'
-            , scroll: false
-          });
-          $magnet.css('left', event.pageX - (ui.item.width() / 2) )
-          $magnet.css('top', event.pageY - 156 + (ui.item.height() / 2) )
-          var randomAngle = (Math.floor(Math.random() * 10)) - 4 + 'deg'
-          $magnet.css('transform', 'rotate('+ randomAngle + ')')
-        }
-      }
-    })
+    }
   })
+}
+
+function reInitMagnet($magnet, ui) {
+  $magnetList.append($magnet);
+  $magnet.draggable({ 
+    cursor: '-webkit-grabbing'
+    , stack: '#magnet-list li'
+    , connectToSortable: '#build-area'
+    , scroll: false
+  });
+  $magnet.css('left', event.pageX - (ui.item.width() / 2) )
+  $magnet.css('top', event.pageY - 156 + (ui.item.height() / 2) )
+  var randomAngle = (Math.floor(Math.random() * 10)) - 4 + 'deg'
+  $magnet.css('transform', 'rotate('+ randomAngle + ')')
 }
 
 function updateTweetText() {
@@ -75,9 +87,6 @@ function setListeners() {
 function getMagnets() {
   $.get('http://localhost:3000/search?type=twitter&q=' + encodeURIComponent($searchBox.val()))
   .done(function(response) {
-    $magnetList.empty();
-    $buildArea.empty();
-    $charCount.html(140);
     appendMagnets(response);
     makeMagnetsDraggable();
     scatterMagnets();

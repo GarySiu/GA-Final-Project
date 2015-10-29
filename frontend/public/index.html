@@ -5,25 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <title>Magnetic Tweets</title>
   <link href='//fonts.googleapis.com/css?family=Cutive+Mono' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
   <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
+<body class='row'>
   <form>
-    <label for="search-box">Search: </label>
-    <input type="text" value="@GA" id="search-box" class="form-control">
+    <div class="input-field">
+      <label for="search-box">Search</label>
+      <input type="text" value="@GA" id="search-box" class="col s6 m3">
+    </div>
     <input type="submit" value="Get new magnets" id="search-button" class="btn btn-default">
   </form>
   <ul id="magnet-list"></ul>
   <div id="bottom-container">
     <ul id="build-area"></ul>
     <div>
-      <a href="https://twitter.com/intent/tweet?text=Magnetic%20Tweets" class="btn btn-default" data-url="http://generalassemb.ly" data-size="large" data-count="none" id="tweet-button">Tweet</a> <span  id="char-count">140</span>
+      <a href="https://twitter.com/intent/tweet?text=Magnetic%20Tweets" class="btn btn-default" id="tweet-button">Tweet</a> <span  id="char-count">140</span>
     </div>
   </div>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
   <script src="./js/app.js"></script>
 </body>
 </html>
