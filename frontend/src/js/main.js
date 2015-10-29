@@ -22,7 +22,9 @@ function buildAreaInit() {
       receive: function(event, ui) {
         updateTweetText();
         ui.item.draggable('destroy');
+        ui.item.css('transform', 'rotate(0deg)')
       }
+      , placeholder: "ui-state-highlight"
       , over: function () {
         removeIntent = false;
       }
@@ -31,8 +33,8 @@ function buildAreaInit() {
       }
       , beforeStop: function (event, ui) {
         if(removeIntent == true){
-          var $magnet = ui.item.detach();
           updateTweetText();
+          var $magnet = ui.item.detach();
           $magnetList.append($magnet);
           $magnet.draggable({ 
             cursor: '-webkit-grabbing'
@@ -42,6 +44,8 @@ function buildAreaInit() {
           });
           $magnet.css('left', event.pageX - (ui.item.width() / 2) )
           $magnet.css('top', event.pageY - 156 + (ui.item.height() / 2) )
+          var randomAngle = (Math.floor(Math.random() * 10)) - 4 + 'deg'
+          $magnet.css('transform', 'rotate('+ randomAngle + ')')
         }
       }
     })
@@ -74,26 +78,37 @@ function getMagnets() {
     $magnetList.empty();
     $buildArea.empty();
     $charCount.html(140);
+    appendMagnets(response);
+    makeMagnetsDraggable();
+    scatterMagnets();
+  });
+}
 
-    var magnets = response;
-    $.each(magnets, function(index, magnet) {
-      var template = '<li data-text="' + magnet + '">' + magnet + '</li>'
-      $magnetList.append(template)
-    });
+function appendMagnets(magnets) {
+  $.each(magnets, function(index, magnet) {
+    var template = '<li data-text="' + magnet + '">' + magnet + '</li>'
+    $magnetList.append(template).hide().fadeIn('slow')
+  });
+}
 
-    $(function() {
-      $('li')
-        .draggable({ 
-          cursor: '-webkit-grabbing'
-          , containment: $magnetList
-          , stack: '#magnet-list li'
-          , connectToSortable: '#build-area'
-          , scroll: false
-        });
-      $.each($('li'), function(index, magnet) {
-        $(magnet).css('left', Math.floor(Math.random() * $(window).width()) - $(magnet).width())
-        $(magnet).css('top', Math.floor(Math.random() * $magnetList.height()) - $(magnet).height())
-      })
-    });
+function makeMagnetsDraggable() {
+  $('li')
+  .draggable({ 
+    cursor: '-webkit-grabbing'
+    // , containment: $magnetList
+    , stack: '#magnet-list li'
+    , connectToSortable: '#build-area'
+    , scroll: false
+  });
+}
+
+function scatterMagnets(){
+  $.each($('li'), function(index, magnet) {
+    var randomLeft = Math.abs(Math.floor(Math.random() * $(window).width() - ($(window).width() / 6)))
+    var randomTop = Math.abs(Math.floor(Math.random() * $magnetList.height() - 50))
+    var randomAngle = (Math.floor(Math.random() * 10)) - 4 + 'deg'
+    $(magnet).css('left', randomLeft)
+    $(magnet).css('top', randomTop)
+    $(magnet).css('transform', 'rotate('+ randomAngle + ')')
   });
 }
