@@ -4,8 +4,10 @@ $(document)
     $searchBox = $('#search-box');
     $searchButton = $('#search-button');
     $buildArea = $('#build-area');
-    $tweetButton = $('#tweet-button')
-    $charCount = $('#char-count')
+    $tweetButton = $('#tweet-button');
+    $charCount = $('#char-count');
+    $arrangeButton = $('#arrange-button');
+    $scatterButton = $('#scatter-button');
 
     setListeners();
     setMagnetListHeight();
@@ -23,7 +25,7 @@ $(document)
   });
 
 function setMagnetListHeight() {
-  $magnetList.css('height', $(window).height() - 300)
+  $magnetList.css('height', $(window).height() - 310)
 }
 
 function buildAreaInit() {
@@ -41,7 +43,7 @@ function buildAreaInit() {
       removeIntent = true;
     }
     , beforeStop: function (event, ui) {
-      if(removeIntent == true) {
+      if(removeIntent === true) {
         updateTweetText();
         var $magnet = ui.item.detach();
         reInitMagnet($magnet, ui)
@@ -58,17 +60,19 @@ function reInitMagnet($magnet, ui) {
     , connectToSortable: '#build-area'
     , scroll: false
   });
-  $magnet.css('left', event.pageX - (ui.item.width() / 2) )
-  $magnet.css('top', event.pageY - 156 + (ui.item.height() / 2) )
+  $magnet.css('left', event.pageX - (ui.item.width() * 2)     )
+  $magnet.css('top', event.pageY - 60 - (ui.item.height() * 2) )
   var randomAngle = (Math.floor(Math.random() * 10)) - 4 + 'deg'
   $magnet.css('transform', 'rotate('+ randomAngle + ')')
 }
 
 function updateTweetText() {
-  var outputString = $buildArea.sortable('toArray', {attribute: 'data-text'}).join(' ');
+  var outputString = $buildArea.sortable('toArray', 
+    {attribute: 'data-text'}).join(' ');
   updateCharCount(outputString.length);
   outputString = encodeURIComponent(outputString);
-  $tweetButton.attr('href', 'https://twitter.com/intent/tweet?text=' + outputString);
+  $tweetButton.attr('href',
+    'https://twitter.com/intent/tweet?text=' + outputString);
 }
 
 function updateCharCount(size) {
@@ -81,11 +85,22 @@ function setListeners() {
     getMagnets();
   })
 
+  $arrangeButton.on('click', function() {
+    event.preventDefault();
+    arrangeMagnets();
+  })
+
+  $scatterButton.on('click', function() {
+    event.preventDefault();
+    scatterMagnets();
+  })
+
   $(window).on('resize', setMagnetListHeight)
 }
 
 function getMagnets() {
-  $.get('http://localhost:3000/search?type=twitter&q=' + encodeURIComponent($searchBox.val()))
+  $.get('http://localhost:3000/search?type=twitter&q=' +
+    encodeURIComponent($searchBox.val()))
   .done(function(response) {
     appendMagnets(response);
     makeMagnetsDraggable();
@@ -101,7 +116,7 @@ function appendMagnets(magnets) {
 }
 
 function makeMagnetsDraggable() {
-  $('li')
+  $('#magnet-list li')
   .draggable({ 
     cursor: '-webkit-grabbing'
     // , containment: $magnetList
@@ -111,11 +126,24 @@ function makeMagnetsDraggable() {
   });
 }
 
+function arrangeMagnets() {
+  $.each($('#magnet-list li'), function(index, magnet) {
+    $(magnet).draggable('destroy')
+    $(magnet).css('left', 0)
+    $(magnet).css('top', 0)
+    // $(magnet).css('transform', 'rotate(0deg)')
+    $(magnet).css('position', 'static')
+    makeMagnetsDraggable()
+  })
+}
+
 function scatterMagnets(){
-  $.each($('li'), function(index, magnet) {
-    var randomLeft = Math.abs(Math.floor(Math.random() * $(window).width() - ($(window).width() / 2)))
+  $.each($('#magnet-list li'), function(index, magnet) {
+    var randomLeft = Math.abs(Math.floor(Math.random() * $(window).width() -
+      ($(window).width() / 2.25)))
     var randomTop = Math.abs(Math.floor(Math.random() * $magnetList.height() - 50))
-    var randomAngle = (Math.floor(Math.random() * 10)) - 4 + 'deg'
+    var randomAngle = (Math.floor(Math.random() * 8)) - 3 + 'deg'
+    $(magnet).css('position', 'absolute')
     $(magnet).css('left', randomLeft)
     $(magnet).css('top', randomTop)
     $(magnet).css('transform', 'rotate('+ randomAngle + ')')

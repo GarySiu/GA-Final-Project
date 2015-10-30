@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  background: url(./images/fridge.png) no-repeat center center fixed;
+  background: url(./images/fridge.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   background-size: cover;
 }
@@ -20,12 +20,13 @@ ul {
 
 li {
   font-family: 'Cutive Mono', monospace;
-  font-size: 18px;
+  font-size: 16px;
   background: #FFF;
   color: #000;
   border: 2px solid #000;
   margin: 5px;
-  padding: 7px;
+  padding: 3px;
+  height: 34px;
   vertical-align: top;
   display: inline-block;
   cursor: -webkit-grab;
@@ -39,7 +40,7 @@ li {
   background: rgba(0,0,0,0.1);
   height: 156px;
   padding: 5px;
-  margin-top: 16px;
+  margin: 16px auto 10px auto;
 }
 
 #build-area li {
@@ -52,6 +53,7 @@ li {
   font-family: 'Cutive Mono', monospace;
   font-size: 36px;
   float: right;
+  line-height: 36px;
 }
 
 #tweet-button {
@@ -72,10 +74,10 @@ li {
 
 .ui-state-highlight {
   background: rgba(0,0,0,0.1);
-  height: 44px;
-  width: 44px;
+  height: 34px;
+  width: 34px;
 }
-/*
-.preloader-wrapper {
+
+.mza {
   margin: 0 auto;
-}*/
+}
