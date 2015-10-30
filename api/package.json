@@ -9,6 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "clean-this-tweet-up": "^1.0.1"
+    "body-parser": "^1.14.1",
+    "clean-this-tweet-up": "^1.0.1",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "markov": "0.0.7",
+    "twit": "^2.1.1"
   }
 }
