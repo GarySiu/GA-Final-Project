@@ -140,11 +140,12 @@ function scatterMagnets(){
   $.each($('#magnet-list li'), function(index, magnet) {
     var randomLeft = Math.abs(Math.floor(Math.random() * $(window).width() -
       ($(window).width() / 2.25)))
-    var randomTop = Math.abs(Math.floor(Math.random() * $magnetList.height() - 50))
-    var randomAngle = (Math.floor(Math.random() * 8)) - 3 + 'deg'
-    $(magnet).css('position', 'absolute')
-    $(magnet).css('left', randomLeft)
-    $(magnet).css('top', randomTop)
-    $(magnet).css('transform', 'rotate('+ randomAngle + ')')
+    , randomTop = Math.abs(Math.floor(Math.random() * $magnetList.height() - 50))
+    , randomAngle = (Math.floor(Math.random() * 8)) - 3 + 'deg';
+    $(magnet)
+      .css('position', 'absolute')
+      .css('left', randomLeft)
+      .css('top', randomTop)
+      .css('transform', 'rotate('+ randomAngle + ')');
   });
 }
