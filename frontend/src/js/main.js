@@ -127,14 +127,13 @@ function makeMagnetsDraggable() {
 }
 
 function arrangeMagnets() {
-  $.each($('#magnet-list li'), function(index, magnet) {
-    $(magnet).draggable('destroy')
-    $(magnet).css('left', 0)
-    $(magnet).css('top', 0)
+  $('#magnet-list li')
+    .draggable('destroy')
+    .css('left', 0)
+    .css('top', 0)
     // $(magnet).css('transform', 'rotate(0deg)')
-    $(magnet).css('position', 'static')
-    makeMagnetsDraggable()
-  })
+    .css('position', 'static');
+  makeMagnetsDraggable()
 }
 
 function scatterMagnets(){
