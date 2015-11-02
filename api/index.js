@@ -28,11 +28,12 @@ app.get('/search', urlencodedParser, function(req, res) {
 
     T.get('statuses/user_timeline', { screen_name: screen_name,
       count: 200, trim_user: true, exclude_replies: true, include_rts: false }, function (err, data, response) {
-      if(err) {
+      if(err || data.length === 0) {
         console.log(err)
         return res.send(['An error occured'])
+      } else {
+        res.send(magnetize(data));
       }
-      res.send(magnetize(data));
     });
 
     console.log('Returning results for user named:', screen_name)
@@ -42,12 +43,13 @@ app.get('/search', urlencodedParser, function(req, res) {
     var query = req.query.q;
 
     T.get('search/tweets', { q: query, count: 100 }, function(err, data, response) {
-      if(err) {
+      data = data.statuses;
+      if(err || data.length === 0) {
         console.log(err)
         return res.send(['An error occured'])
+      } else {
+        res.send(magnetize(data));
       }
-      data = data.statuses;
-      res.send(magnetize(data));
     });
 
     console.log('Generic search:', query);
