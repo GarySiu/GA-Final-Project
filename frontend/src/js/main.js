@@ -21,7 +21,10 @@ $(document)
     $magnetList.append('<div class="progress"><div class="indeterminate"></div></div>');
   })
   .ajaxStop(function(){
-    $('#magnet-list > .progress').remove();
+    $('#magnet-list progress').remove();
+  })
+  .ajaxError(function(){
+    $('#magnet-list progress').remove();
   });
 
 function setMagnetListHeight() {
@@ -53,17 +56,18 @@ function buildAreaInit() {
 }
 
 function reInitMagnet($magnet, ui) {
+  var randomAngle = (Math.floor(Math.random() * 10)) - 4 + 'deg';
   $magnetList.append($magnet);
-  $magnet.draggable({ 
-    cursor: '-webkit-grabbing'
-    , stack: '#magnet-list li'
-    , connectToSortable: '#build-area'
-    , scroll: false
-  });
-  $magnet.css('left', event.pageX - (ui.item.width() * 2)     )
-  $magnet.css('top', event.pageY - 60 - (ui.item.height() * 2) )
-  var randomAngle = (Math.floor(Math.random() * 10)) - 4 + 'deg'
-  $magnet.css('transform', 'rotate('+ randomAngle + ')')
+  $magnet
+    .draggable({ 
+      cursor: '-webkit-grabbing'
+      , stack: '#magnet-list li'
+      , connectToSortable: '#build-area'
+      , scroll: false
+    })
+    .css('left', event.pageX - (ui.item.width() * 2))
+    .css('top', event.pageY - 60 - (ui.item.height() * 2))
+    .css('transform', 'rotate('+ randomAngle + ')');
 }
 
 function updateTweetText() {
@@ -131,7 +135,7 @@ function arrangeMagnets() {
     .draggable('destroy')
     .css('left', 0)
     .css('top', 0)
-    // $(magnet).css('transform', 'rotate(0deg)')
+    // .css('transform', 'rotate(0deg)')
     .css('position', 'static');
   makeMagnetsDraggable()
 }
