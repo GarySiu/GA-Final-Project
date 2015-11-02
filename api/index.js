@@ -54,7 +54,7 @@ app.get('/search', urlencodedParser, function(req, res) {
       {
         q: query
         , count: 100
-        , lang: en
+        , lang: 'en'
       }
       , function(err, data, response) {
         data = data.statuses;
