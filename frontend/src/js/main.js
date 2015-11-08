@@ -25,6 +25,7 @@ $(document)
   })
   .ajaxError(function(){
     $('#magnet-list progress').remove();
+    appendMagnets(['An error occured'])
   });
 
 function setMagnetListHeight() {
