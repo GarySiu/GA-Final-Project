@@ -1,3 +1,4 @@
+var endpoint = 'http://localhost:3000/';
 $(document)
   .ready(function() {
     $magnetList = $('#magnet-list');
@@ -21,10 +22,10 @@ $(document)
     $magnetList.append('<div class="progress"><div class="indeterminate"></div></div>');
   })
   .ajaxStop(function(){
-    $('#magnet-list progress').remove();
+    $('#magnet-list .progress').remove();
   })
   .ajaxError(function(){
-    $('#magnet-list progress').remove();
+    $('#magnet-list .progress').remove();
     appendMagnets(['An error occured'])
   });
 
@@ -104,7 +105,7 @@ function setListeners() {
 }
 
 function getMagnets() {
-  $.get('http://localhost:3000/search?type=twitter&q=' +
+  $.get(endpoint + 'search?type=twitter&q=' +
     encodeURIComponent($searchBox.val()))
   .done(function(response) {
     appendMagnets(response);
