@@ -1,5 +1,6 @@
 # Magnetic Tweets
 ###GA WDI London - Final Project
+###This app is live at [http://magnetictweets.bitballoon.com/](http://magnetictweets.bitballoon.com/)
 ####A webapp that turns Twitter feeds into magnetic poetry
 This project combines the surreal output of markov chains 
 (the algorithm behind many chatbots, spam mailers and the 
