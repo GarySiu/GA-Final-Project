@@ -31,4 +31,5 @@ The frontend is then dynamically populated and the user is free to build their p
 - The magnets make use of the Google Web Font "Cutive Mono"
 
 ####Problems and Challenges
-The current version of the app is poorly suited for phone use. 
+The current version of the app is poorly suited for phone use.
+This site has Not been designed with scaling in mind. With a relatively small number of active users there's a risk that it will exceed the number of permitted API calls. In the future I plan to either add some caching or link to a users twitter account to avoid this problem.
